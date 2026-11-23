@@ -1,0 +1,396 @@
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --text: #1b1f24;
+  --muted: #5b6472;
+  --border: #d9dde3;
+  --accent: #1f6feb;
+  --accent-text: #ffffff;
+  --good-bg: #e8f5ec;
+  --good-border: #2f9e55;
+  --bad-bg: #fdecec;
+  --bad-border: #d1453b;
+  --code-bg: #f0f2f5;
+  --gpu0: #1f77b4;
+  --gpu1: #e8590c;
+  --fan1: #4c6ef5;
+  --fan2: #15aabf;
+  --fan3: #82c91e;
+  --fan4: #e03131;
+  --grid: #e6e9ee;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111418;
+    --surface: #1a1e24;
+    --text: #e6e9ee;
+    --muted: #9aa4b2;
+    --border: #2e353f;
+    --accent: #4c8dff;
+    --good-bg: #16291d;
+    --good-border: #3fbf6a;
+    --bad-bg: #2f1a1a;
+    --bad-border: #ef5a50;
+    --code-bg: #12161b;
+    --gpu0: #5aa9e6;
+    --gpu1: #ff8c42;
+    --grid: #262c34;
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0 0 12px;
+}
+
+h2 {
+  font-size: 1.3rem;
+  margin: 0 0 8px;
+}
+
+h3 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.lead {
+  font-size: 1.1rem;
+}
+
+.small {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.warn {
+  color: var(--bad-border);
+}
+
+button {
+  font: inherit;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+button.link {
+  border: none;
+  background: none;
+  color: var(--accent);
+  padding: 0;
+  margin-left: auto;
+}
+
+.queue {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.queue button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 14px 16px;
+}
+
+.queue span {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.ticket,
+.step {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.ticket-head {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.ticket-id {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+}
+
+.steps li {
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.steps li.current {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.steps li.done {
+  color: var(--good-border);
+}
+
+blockquote {
+  margin: 0 0 12px;
+  padding-left: 12px;
+  border-left: 3px solid var(--border);
+  color: var(--muted);
+}
+
+.chart {
+  margin: 12px 0;
+}
+
+.chart svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chart .grid {
+  stroke: var(--grid);
+}
+
+.chart .tick,
+.chart .axis,
+.chart .ref-label {
+  fill: var(--muted);
+  font-size: 12px;
+}
+
+.chart .ref {
+  stroke: var(--good-border);
+  stroke-dasharray: 4 4;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.legend i {
+  display: inline-block;
+  width: 14px;
+  height: 4px;
+  border-radius: 2px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.legend i.dashed {
+  height: 2px;
+  opacity: 0.7;
+}
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 12px 0;
+  padding: 8px 12px 12px;
+}
+
+legend {
+  font-weight: 600;
+  padding: 0 4px;
+}
+
+fieldset label,
+label.check {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  padding: 3px 0;
+}
+
+label.ruled-out {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+.feedback {
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 12px;
+  border: 1px solid var(--border);
+}
+
+.feedback.good {
+  background: var(--good-bg);
+  border-color: var(--good-border);
+}
+
+.feedback.bad {
+  background: var(--bad-bg);
+  border-color: var(--bad-border);
+}
+
+.feedback p:first-child {
+  margin-top: 0;
+}
+
+.slider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0 12px;
+  font-size: 0.95rem;
+}
+
+.slider input {
+  flex: 1;
+}
+
+.evidence-list {
+  display: grid;
+  gap: 12px;
+}
+
+.evidence {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.evidence.open {
+  border-color: var(--accent);
+}
+
+.evidence header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.evidence header p {
+  margin: 2px 0 0;
+}
+
+.source {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+}
+
+pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.75rem;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+.pre-pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 8px;
+}
+
+.sensors,
+.debrief {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.sensors th,
+.sensors td,
+.debrief th,
+.debrief td {
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.debrief th {
+  width: 30%;
+}
+
+.sensors tr.alarm td {
+  color: var(--bad-border);
+  font-weight: 600;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+textarea {
+  width: 100%;
+  font: inherit;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.model {
+  margin-top: 12px;
+}
